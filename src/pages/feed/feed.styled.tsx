@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+
+export const StyledContainer = styled.section`
+color: white;
+`;
+
 export const StyledSection = styled.main`
 display: flex;
 background: white;

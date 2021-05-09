@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <g id="Layer_2" data-name="Layer 2" transform="translate(0.142 0.232)">
+    <g id="invisible_box" data-name="invisible box" transform="translate(-0.142)">
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="15" height="15" transform="translate(0 -0.232)" fill="none"/>
+    </g>
+    <g id="Q3_icons" data-name="Q3 icons" transform="translate(0.507 1.213)">
+      <path id="Path_1" data-name="Path 1" d="M4.425,5.213A1.213,1.213,0,1,1,3.213,6.425,1.213,1.213,0,0,1,4.425,5.213M4.425,4A2.425,2.425,0,1,0,6.851,6.425,2.425,2.425,0,0,0,4.425,4Z" transform="translate(-2 -4)" fill="#333"/>
+      <path id="Path_2" data-name="Path 2" d="M32.425,5.213a1.213,1.213,0,1,1-1.213,1.213,1.213,1.213,0,0,1,1.213-1.213m0-1.213a2.425,2.425,0,1,0,2.425,2.425A2.425,2.425,0,0,0,32.425,4Z" transform="translate(-21.511 -4)" fill="#333"/>
+      <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="1.5" cy="0.5" rx="1.5" ry="0.5" transform="translate(7.351 5.555)" fill="#333"/>
+      <ellipse id="Ellipse_4" data-name="Ellipse 4" cx="1.5" cy="0.5" rx="1.5" ry="0.5" transform="translate(2.351 5.555)" fill="#333"/>
+      <circle id="Ellipse_5" data-name="Ellipse 5" cx="1" cy="1" r="1" transform="translate(5.351 1.555)" fill="#333"/>
+      <path id="Path_3" data-name="Path 3" d="M18.425,30.213a1.213,1.213,0,1,1-1.213,1.213,1.213,1.213,0,0,1,1.213-1.213m0-1.213a2.425,2.425,0,1,0,2.425,2.425A2.425,2.425,0,0,0,18.425,29Z" transform="translate(-11.756 -21.421)" fill="#333"/>
+    </g>
+  </g>
+</svg>

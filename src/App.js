@@ -4,28 +4,29 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import './App.css';
+import { StyledContainer, StyledHeader } from './App.styled';
+
 import MainPage from './pages/main/main.component';
-// import Dashboard from './pages/Feed/Feed.component';
+import FeedPage from './pages/feed/feed.component';
 
 function App() {
   return (
-    <main>
-        <header>
+    <StyledContainer>
+        <StyledHeader>
         <h1>Read It</h1>
         <p>The second page of Reddit</p>
-        </header>
+        </StyledHeader>
     <Router>
     <Switch>
           <Route exact path="/">
             <MainPage />
           </Route>
-          {/* <Route path="/feed">
-           <Feed />
-          </Route> */}
+          <Route path="/feed">
+           <FeedPage />
+          </Route>
         </Switch>
     </Router>
-    </main>
+    </StyledContainer>
 
   );
 }
