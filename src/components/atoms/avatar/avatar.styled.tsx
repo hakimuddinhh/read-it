@@ -19,14 +19,14 @@ export const StyledUsername = styled.span`
     display: flex;
     font-weight: bold;
     color: ${DARK_GREY};
-    font-size: 20px;
+    font-size: 12px;
 
 `;
 
 export const StyledKarmaField = styled.div`
     display: flex;
-    gap: 5px;
-    font-size: 18px;
+    gap: 8px;
+    font-size: 12px;
     color: ${DARK_GREY};
 `;
 

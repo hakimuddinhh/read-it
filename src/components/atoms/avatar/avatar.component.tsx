@@ -17,7 +17,7 @@ export interface IAvatar {
 export const Avatar = ({imagePath, username, karma }: IAvatar) => {
     return <StyledContainer>
         <StyledProfileImage>
-            <img width="50" height="50" src={imagePath} alt={username} />
+            <img width="35" height="35" src={imagePath} alt={username} />
         </StyledProfileImage> 
         <StyledUsername>{username}</StyledUsername>
         <StyledKarmaField>

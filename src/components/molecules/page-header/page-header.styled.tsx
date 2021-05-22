@@ -6,9 +6,26 @@ export const StyledContainer = styled.header`
 display: grid;
 grid-template-columns: 1fr 1fr;
 align-items: center;
-
+padding: 20px;
 &>:last-child {
     justify-self: end;
+}
+`;
+
+export const StyledButton = styled.button`
+all: inherit;
+color: white;
+background: #3c3c3c;
+padding: 7px;
+font-weight: bold;
+border-radius: 10px;
+font-size: 14px;
+cursor: pointer;
+transition: all 0.3s ease-in;
+&:hover {
+    box-shadow: 0 2px 3px grey;
+transition: all 0.3s ease-out;
+
 }
 `;
 
