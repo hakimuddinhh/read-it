@@ -69,7 +69,7 @@ export default function Feed() {
     } : {};
 
     const URL = token ? bestListingsURL : bestListingGuestURL;
-    const paginationString = `?limit=${ITEMS_PER_PAGE}${lastElementParam}`;
+    const paginationString = `&limit=${ITEMS_PER_PAGE}${lastElementParam}`;
     const listingsData = await fetchAPI(
       URL + paginationString,
       headers
@@ -138,7 +138,7 @@ export default function Feed() {
                   subreddit={listing?.data?.subreddit}
                   created={listing?.data?.created_utc}
                   title={listing?.data?.title}
-                  selftext={listing?.data?.selftext}
+                  selftext={listing?.data?.selftext_html}
                   url={listing?.data?.url}
                   thumbnail={listing?.data?.thumbnail}
                   media={

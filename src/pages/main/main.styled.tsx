@@ -17,6 +17,19 @@ export const StyledSection = styled.section`
   padding: 15px;
 `;
 
+
+export const StyledInfo = styled.section`
+background: white;
+color: #2f2f2f;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+padding: 10px;
+font-size: 12px;
+`;
+
+
 export const StyledMain = styled.main`
 
 

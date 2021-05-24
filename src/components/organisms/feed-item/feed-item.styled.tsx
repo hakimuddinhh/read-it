@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import {marginHorizontalForNonMedia} from '../../../common/mixins/marginHorizontalForNonMedia';
 
-const marginHorizontalForNonMedia = 'margin-left: 15px; margin-right: 15px;';
 
 export const StyledPlayerControls = styled.div`
   position: absolute;
@@ -21,29 +21,6 @@ max-width: 100%;
 }
 `;
 
-export const StyledButton = styled.div`
-  cursor: pointer;
-  position: absolute;
-  bottom: 22px;
-  width: 100%;
-  left: 0;
-  background: rgba(255, 255, 255, 0.9);
-  height: 50px;
-
-  &:hover {
-      img{
-        margin-top: 10px;
-        transition: all 0.3s;
-      }
-  
-  }
-  &>img {
-      margin-top: 0;
-      transition: all 0.3s;
-      padding: 10px;
-
-  }
-`;
 
 export const StyledContainer = styled.div`
   display: grid;
@@ -83,8 +60,7 @@ export const StyledPost = styled.div`
 `;
 
 export const StyledSubHeader = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   justify-content: space-between;
 
   & > :nth-child(2) {
@@ -93,6 +69,11 @@ export const StyledSubHeader = styled.div`
 
   & > :last-child {
     justify-self: end;
+  }
+  @media only screen and (max-width: 600px) {
+    &>:first-child {
+      display: none;
+    }
   }
   ${marginHorizontalForNonMedia}
 `;
@@ -111,9 +92,4 @@ export const StyledPostedBefore = styled.div`
 
 export const StyledAuthorName = styled.div``;
 
-export const StyledParagraph = styled.p`
-  max-height: 168px;
-  overflow-y: hidden;
-  ${marginHorizontalForNonMedia}
 
-`;

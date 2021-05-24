@@ -7,43 +7,18 @@ import {
   StyledSubHeader,
   StyledSubRedditLabel,
   StyledTitle,
-  StyledButton,
-  StyledParagraph,
   StyledPlayerControls,
   StyledVideo,
 } from "./feed-item.styled";
 import { IFeedItemRender } from "../../../models/feedItem.model";
 import { isImage } from "../../../helpers/isImage";
 import { getPostedAgoTime } from "../../../helpers/getPostedAgoTime";
+import {FeedContent} from '../../molecules/feed-content/feed-content.component';
 import timeIcon from "../../../images/time.svg";
 import playIcon from "../../../images/play.png";
 import pauseIcon from "../../../images/pause.png";
-import readIcon from "../../../images/read.svg";
 
-interface IParagraph {
-  text: string;
-}
 
-const Paragraph = ({ text }: IParagraph) => {
-  const textFiltered = text.replaceAll("&amp;", "&");
-
-  const readMore = (e: any) => {
-    e.currentTarget.previousSibling.style.overflowY = "initial";
-    e.currentTarget.previousSibling.style.maxHeight = "fit-content";
-    e.currentTarget.remove();
-  };
-
-  return (
-    <>
-      <StyledParagraph>{textFiltered}</StyledParagraph>
-      {text.length > 400 && (
-        <StyledButton onClick={readMore}>
-          <img alt="read-more" src={readIcon} width="30" />
-        </StyledButton>
-      )}
-    </>
-  );
-};
 
 interface IVideoPlaying {
   [video: string]: boolean;
@@ -96,7 +71,9 @@ export const FeedItem = ({
       </StyledSubHeader>
       <StyledTitle>{title.replaceAll("&amp;", "&")}</StyledTitle>
       <StyledPost>
-        {selftext && <Paragraph text={selftext} />}
+        {/* {selftext && <Paragraph text={selftext} />} */}
+        {selftext && <FeedContent text={selftext} />}
+        
         {thumbnail && thumbnail !== "self" && isImage(url) && (
           <img alt={title} src={url} />
         )}
