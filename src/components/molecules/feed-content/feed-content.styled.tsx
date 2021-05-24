@@ -37,6 +37,10 @@ font-weight: 600;
 
   }
 
+  p{
+    overflow-wrap: anywhere;
+  }
+
   table {
     max-width: calc(100vw - 30px);
     overflow: scroll;
