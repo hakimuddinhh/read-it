@@ -21,11 +21,13 @@ export interface IFeedItemRequest extends IFeedItemCommon{
     selftext_html: string;
     name: string;
     over_18: boolean;
+    permalink: string;
 }  
 
 export interface IFeedItemRender extends IFeedItemCommon {
     media?: IFeedVideo | null;
     created: number;
+    getCommentAPI: string;
 } 
 
   interface IVideo {
