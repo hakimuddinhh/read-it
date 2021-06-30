@@ -6,10 +6,14 @@ import {
   StyledVotes,
   StyledRepliesCount,
   StyledCommentsWrapper,
+  StyledNavButton,
+  StyledNavButtonContainer,
 } from "./comments.styled";
 import { PostedAgo } from "../../atoms/posted-ago/posted-ago.component";
+import { Votes } from "../../atoms/votes/votes.component";
 import repliesIcon from "../../../images/replies.png";
 import { useState } from "react";
+import loaderStories from "../../atoms/loader/loader.stories";
 
 
 // interface ICommentItem {
@@ -26,7 +30,6 @@ export const Comments = ({ data }) => {
   // const [list, setList] = useState<ICommentItem>();
 
   const setNewReply = (comment) => {
-    debugger;
     const commentTrackerUpdated = { ...commentTracker };
     const replies = comment.replies.data.children;
     const title = comment.body;
@@ -41,12 +44,13 @@ export const Comments = ({ data }) => {
       list.length > 0 &&
       <StyledCommentsWrapper>
       {list.map((comment) => (
+        comment.kind !== 'more' ?
         <StyledCommentsContainer key={comment.data.id}>
           <StyledAuthor>{comment.data.author}</StyledAuthor>
           <StyledContent>{comment.data.body}</StyledContent>
           <PostedAgo timestamp={comment.data.created} type="post" />
           <StyledVotes>
-            {comment.data.ups ? comment.data.ups : `-${comment.data.downs}`}
+            <Votes type={comment.data.ups ? 'upvote' : 'downvote'} count={comment.data.ups || comment.data.downs} />
           </StyledVotes>
           {comment.data.replies?.data?.children.length && (
             <StyledRepliesCount onClick={() => setNewReply(comment.data)}>
@@ -58,7 +62,11 @@ export const Comments = ({ data }) => {
               {comment.data.replies?.data?.children.length}
             </StyledRepliesCount>
           )}
+          <hr />
         </StyledCommentsContainer>
+        // below condition gets trigger when there are more comments to load
+        // TODO: Add load more functionality on click of below Element
+        : <div key={comment.data.id}>No more comments</div>
       ))}
       </StyledCommentsWrapper>
     );
@@ -81,15 +89,15 @@ export const Comments = ({ data }) => {
   return (
     <StyledMainContainer>
       <h3>Comments</h3>
-      {commentTracker.atLevel && (
-        <>
-          <button onClick={goBack}>Back</button>
-          <button onClick={GetfirstLevelComments}>First level comments</button>
+      {commentTracker.atLevel ? (
+        <StyledNavButtonContainer>
+          <StyledNavButton onClick={goBack}> &#x3c; </StyledNavButton>
+          <StyledNavButton onClick={GetfirstLevelComments}>&#x3c; &#x3c;</StyledNavButton>
           <b>
             {commentTracker.replies[commentTracker.replies.length - 1].title}
           </b>
-        </>
-      )}
+        </StyledNavButtonContainer>
+      ) : null}
        
       {renderComments(
         commentTracker.atLevel
