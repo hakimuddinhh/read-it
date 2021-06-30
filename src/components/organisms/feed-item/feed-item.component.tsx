@@ -3,20 +3,21 @@ import {
   StyledContainer,
   StyledAuthorName,
   StyledPost,
-  StyledPostedBefore,
   StyledSubHeader,
   StyledSubRedditLabel,
   StyledTitle,
   StyledPlayerControls,
   StyledVideo,
 } from "./feed-item.styled";
+import {base} from '../../../constants/apis';
 import { IFeedItemRender } from "../../../models/feedItem.model";
 import { isImage } from "../../../helpers/isImage";
-import { getPostedAgoTime } from "../../../helpers/getPostedAgoTime";
 import {FeedContent} from '../../molecules/feed-content/feed-content.component';
-import timeIcon from "../../../images/time.svg";
+import {Comments} from '../../molecules/comments/comments.component';
+import {PostedAgo} from '../../atoms/posted-ago/posted-ago.component';
 import playIcon from "../../../images/play.png";
 import pauseIcon from "../../../images/pause.png";
+import { fetchAPI } from "../../../services";
 
 
 
@@ -34,9 +35,10 @@ export const FeedItem = ({
   thumbnail,
   media,
   author,
+  getCommentAPI,
 }: IFeedItemRender) => {
   const [isVideoPlaying, setVideoPlaying] = useState<IVideoPlaying>({});
-
+  const [comments, setComments] = useState();
 
   const handleVideoEvent = (
     e: SyntheticEvent<HTMLButtonElement>,
@@ -59,21 +61,32 @@ export const FeedItem = ({
     setVideoPlaying(newVideoState);
   };
 
+  const getComments = async () => {
+    const URL = base + getCommentAPI + '.json';
+    const token = '';
+    const headers = token ? {
+      Authorization: token,
+      "User-Agent": "Read It",
+    } : {};
+    const response = await fetchAPI(
+      URL,
+      headers
+    );
+    setComments(response[1].data.children)
+
+  }
+
   return (
     <StyledContainer id={id}>
       <StyledSubHeader>
         <StyledAuthorName>{author}</StyledAuthorName>
         <StyledSubRedditLabel>{subreddit}</StyledSubRedditLabel>
-        <StyledPostedBefore>
-          <img src={timeIcon} alt="posted ago" width="10" />
-          <span>{getPostedAgoTime(created)}</span>
-        </StyledPostedBefore>
+        <PostedAgo timestamp={created} type='post'/>
       </StyledSubHeader>
-      <StyledTitle>{title.replaceAll("&amp;", "&")}</StyledTitle>
+      <StyledTitle onClick={getComments}>{title.replaceAll("&amp;", "&")}</StyledTitle>
       <StyledPost>
         {/* {selftext && <Paragraph text={selftext} />} */}
         {selftext && <FeedContent text={selftext} />}
-        
         {thumbnail && thumbnail !== "self" && isImage(url) && (
           <img alt={title} src={url} />
         )}
@@ -115,6 +128,8 @@ export const FeedItem = ({
           </div>
         )}
       </StyledPost>
+      {comments && <Comments data={comments} />}
+
     </StyledContainer>
   );
 };

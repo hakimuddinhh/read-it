@@ -13,12 +13,13 @@ export const FeedContent = ({ text }: IFeedContent) => {
     e.currentTarget.previousSibling.style.maxHeight = "fit-content";
     e.currentTarget.remove();
   };
-
+  
+  
   // find by searching tech-debt
   // show the read more button for less chars for smaller device
   // NOTE: this solution is a workaround as it wont work on resize and will break on stress testing
   const showReadMore = (text) => ((window.innerWidth > 750 && text.length > 400) || (text.length > 130 && window.innerWidth < 700))
-
+  
   return (
     <>
       <StyledParagraph dangerouslySetInnerHTML={{ __html: text}} />

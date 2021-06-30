@@ -91,6 +91,8 @@ export default function Feed() {
 
   };
 
+
+
   useEffect(() => {
     if (token) {
       // reset url in which auth params are being passed as its already saved in the component's state
@@ -133,6 +135,7 @@ export default function Feed() {
             {listings &&
               listings.map((listing) => (
                 <FeedItem
+                  getCommentAPI={listing?.data?.permalink}
                   author={listing?.data?.author}
                   id={listing?.data?.id}
                   subreddit={listing?.data?.subreddit}

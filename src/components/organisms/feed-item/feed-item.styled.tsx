@@ -82,14 +82,6 @@ export const StyledSubRedditLabel = styled.div`
   font-weight: bolder;
 `;
 
-export const StyledPostedBefore = styled.div`
-  font-weight: lighter;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-
 export const StyledAuthorName = styled.div``;
 
 
