@@ -91,25 +91,7 @@ export default function Feed() {
 
   };
 
-  const getAuthToken = async () => {
 
-    const url = 'https://www.reddit.com/api/v1/access_token';
-    const grant_type = 'https://oauth.reddit.com/grants/installed_client';
-    const device_id = '7fyJ3Nvygni9dQ';
-    const POSTData = {
-        grant_type,
-        device_id,
-    }
-
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: {
-
-        },
-        body: JSON.stringify(POSTData) 
-    });
-    debugger;
-}
 
   useEffect(() => {
     if (token) {
@@ -128,7 +110,6 @@ export default function Feed() {
       token = `bearer ${token.split("&token_type")[0]}`;
       setToken(token);
     } else {
-      getAuthToken()
       getFeed();
     }
   }, []);

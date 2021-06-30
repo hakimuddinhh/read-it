@@ -13,7 +13,6 @@ import { PostedAgo } from "../../atoms/posted-ago/posted-ago.component";
 import { Votes } from "../../atoms/votes/votes.component";
 import repliesIcon from "../../../images/replies.png";
 import { useState } from "react";
-import loaderStories from "../../atoms/loader/loader.stories";
 
 
 // interface ICommentItem {
