@@ -1,14 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from "react-router-dom";
 import { StyledListingContainer, SpinnerContainer } from "./feed.styled";
-import { profileURL, bestListingsURL, bestListingGuestURL } from "../../constants/apis";
+import {
+  profileURL,
+  bestListingsURL,
+  bestListingGuestURL,
+} from "../../constants/apis";
 import { fetchAPI } from "../../services/index";
 import { PageHeader } from "../../components/molecules/page-header/page-header.component";
 import { FeedItem } from "../../components/organisms/feed-item/feed-item.component";
 import { IFeedItemRequest } from "../../models/feedItem.model";
-import { LoaderEvolution, LoaderSpinner } from "../../components/atoms/loader/loader.component";
-import {debounce} from '../../helpers/debounce';
+import {
+  LoaderEvolution,
+  LoaderSpinner,
+} from "../../components/atoms/loader/loader.component";
+import { debounce } from "../../helpers/debounce";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -36,15 +43,14 @@ export default function Feed() {
 
   const location = useLocation();
   const history = useHistory();
- 
 
   const resetURL = () => {
-    const queryParams = new URLSearchParams(location.search)
-    queryParams.delete('access_token')
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.delete("access_token");
     history.replace({
       search: queryParams.toString(),
-    })
-  }
+    });
+  };
 
   const getProfile = async () => {
     const headers = {
@@ -60,22 +66,21 @@ export default function Feed() {
       listings.length > 0
         ? `&after=${listings[listings.length - 1].data.name}`
         : "";
-    if(lastElementParam) {
+    if (lastElementParam) {
       setItemsLoading(true);
     }
-    const headers = token ? {
-      Authorization: token,
-      "User-Agent": "Read It",
-    } : {};
+    const headers = token
+      ? {
+          Authorization: token,
+          "User-Agent": "Read It",
+        }
+      : {};
 
     const URL = token ? bestListingsURL : bestListingGuestURL;
     const paginationString = `&limit=${ITEMS_PER_PAGE}${lastElementParam}`;
-    const listingsData = await fetchAPI(
-      URL + paginationString,
-      headers
-    );
+    const listingsData = await fetchAPI(URL + paginationString, headers);
 
-    if(listingsData.status === 401) {
+    if (listingsData.status === 401) {
       resetURL();
       setToken(null);
       return;
@@ -83,15 +88,12 @@ export default function Feed() {
 
     const updatedListings = [...listings, ...listingsData?.data?.children];
     setListings(updatedListings);
-    if(lastElementParam) {
+    if (lastElementParam) {
       setItemsLoading(false);
     } else {
       setPageLoading(false);
     }
-
   };
-
-
 
   useEffect(() => {
     if (token) {
@@ -115,26 +117,33 @@ export default function Feed() {
   }, []);
 
   const onScroll = debounce(() => {
-    const { scrollHeight, offsetHeight , scrollTop } = scrollContainer.current;
+    const { scrollHeight, offsetHeight, scrollTop } = scrollContainer.current;
     const scrollPadding = 50;
-    if(scrollTop + offsetHeight > scrollHeight - scrollPadding && listings) {
+    if (scrollTop + offsetHeight > scrollHeight - scrollPadding && listings) {
       getFeed();
     }
-  },300);
+  }, 300);
 
   return (
     <>
-       {profile?.id ? <PageHeader
-            imagePath={profile.icon_img}
-            username={profile.name}
-            karma={profile.total_karma}
-          /> : <PageHeader />}
+      {profile?.id ? (
+        <PageHeader
+          imagePath={profile.icon_img}
+          username={profile.name}
+          karma={profile.total_karma}
+        />
+      ) : (
+        <PageHeader />
+      )}
       {!isPageLoading ? (
         <>
           <StyledListingContainer onScroll={onScroll} ref={scrollContainer}>
             {listings &&
               listings.map((listing) => (
                 <FeedItem
+                  commentsCount={listing?.data?.num_comments}
+                  votesCount={listing?.data?.ups || listing?.data?.downs}
+                  votesType={listing?.data?.ups ? "upvote" : "downvote"}
                   getCommentAPI={listing?.data?.permalink}
                   author={listing?.data?.author}
                   id={listing?.data?.id}
@@ -151,7 +160,11 @@ export default function Feed() {
                   }
                 />
               ))}
-          {isItemsLoading && <SpinnerContainer><LoaderSpinner /></SpinnerContainer> }   
+            {isItemsLoading && (
+              <SpinnerContainer>
+                <LoaderSpinner />
+              </SpinnerContainer>
+            )}
           </StyledListingContainer>
         </>
       ) : (

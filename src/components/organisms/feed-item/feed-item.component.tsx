@@ -13,6 +13,7 @@ import {base} from '../../../constants/apis';
 import { IFeedItemRender } from "../../../models/feedItem.model";
 import { isImage } from "../../../helpers/isImage";
 import {FeedContent} from '../../molecules/feed-content/feed-content.component';
+import {FeedMenu} from '../../molecules/feed-menu/feed-menu.component';
 import {Comments} from '../../molecules/comments/comments.component';
 import {PostedAgo} from '../../atoms/posted-ago/posted-ago.component';
 import playIcon from "../../../images/play.png";
@@ -36,6 +37,9 @@ export const FeedItem = ({
   media,
   author,
   getCommentAPI,
+  commentsCount,
+  votesCount,
+  votesType,
 }: IFeedItemRender) => {
   const [isVideoPlaying, setVideoPlaying] = useState<IVideoPlaying>({});
   const [comments, setComments] = useState();
@@ -128,6 +132,11 @@ export const FeedItem = ({
           </div>
         )}
       </StyledPost>
+      <FeedMenu commentsCount={commentsCount} 
+      onCommentsClick={getComments}
+      votesCount={votesCount} 
+      votesType={votesType} />
+
       {comments && <Comments data={comments} />}
 
     </StyledContainer>
