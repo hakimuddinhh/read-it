@@ -22,12 +22,17 @@ export interface IFeedItemRequest extends IFeedItemCommon{
     name: string;
     over_18: boolean;
     permalink: string;
+    num_comments: number;
+    downs: number;
 }  
 
 export interface IFeedItemRender extends IFeedItemCommon {
     media?: IFeedVideo | null;
     created: number;
     getCommentAPI: string;
+    commentsCount: number,
+    votesCount: number,
+    votesType: 'upvote' | 'downvote',
 } 
 
   interface IVideo {

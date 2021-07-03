@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import {
   StyledMainContainer,
   StyledCommentsContainer,
@@ -12,13 +13,7 @@ import {
 import { PostedAgo } from "../../atoms/posted-ago/posted-ago.component";
 import { Votes } from "../../atoms/votes/votes.component";
 import repliesIcon from "../../../images/replies.png";
-import { useState } from "react";
 
-
-// interface ICommentItem {
-//   parent: ICommentItem;
-//   list: [];
-// }
 
 export const Comments = ({ data }) => {
   const [commentTracker, setCommentTracker] = useState<any>({
@@ -26,7 +21,8 @@ export const Comments = ({ data }) => {
     replies: [],
   });
 
-  // const [list, setList] = useState<ICommentItem>();
+  const commentsContainerRef = useRef(null);
+
 
   const setNewReply = (comment) => {
     const commentTrackerUpdated = { ...commentTracker };
@@ -35,16 +31,20 @@ export const Comments = ({ data }) => {
     commentTrackerUpdated.replies.push({ title, replies });
     commentTrackerUpdated.atLevel++;
     setCommentTracker(commentTrackerUpdated);
+    // TODO: below code | scroll to the top when clicked on any replies
+    // commentsContainerRef.current.scrollTo(0, 0)
   };
 
   const renderComments = (list) => {
+
+    
     return (
       list &&
       list.length > 0 &&
       <StyledCommentsWrapper>
       {list.map((comment) => (
         comment.kind !== 'more' ?
-        <StyledCommentsContainer key={comment.data.id}>
+        <StyledCommentsContainer ref={commentsContainerRef} key={comment.data.id}>
           <StyledAuthor>{comment.data.author}</StyledAuthor>
           <StyledContent>{comment.data.body}</StyledContent>
           <PostedAgo timestamp={comment.data.created} type="post" />
