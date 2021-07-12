@@ -5,7 +5,7 @@
 
 A Redesigned version of Reddit with minimal details.
 
-As the name suggest the redesigned is focused to the reading experience as of now.
+As the name suggests, the redesigned is focused on the reading experience as of now.
 
 ## Installation
 
