@@ -1,6 +1,8 @@
 
 # Read It - Reddit Redesigned 
 
+![Reddit Redesigned](https://github.com/hakimuddinhh/read-it/blob/main/src/images/logo%402x.png?raw=true)
+
 A Redesigned version of Reddit with minimal details.
 
 As the name suggest the redesigned is focused to the reading experience as of now.
