@@ -123,7 +123,7 @@ export const FeedItem = ({
             }}
           >
             <StyledVideo
-              preload="auto"
+              preload="metadata"
               width={media?.width}
               playsInline
               style={{ maxWidth: "100%" }}
@@ -141,7 +141,7 @@ export const FeedItem = ({
               </button>
             </StyledPlayerControls>
             <video
-              preload="auto"
+              preload="metadata"
               style={{ width: "100px", height: "100px", position: "absolute" }}
               playsInline
             >
