@@ -123,6 +123,7 @@ export const FeedItem = ({
             }}
           >
             <StyledVideo
+              poster={preview?.images[0].source.url}
               preload="metadata"
               width={media?.width}
               playsInline
