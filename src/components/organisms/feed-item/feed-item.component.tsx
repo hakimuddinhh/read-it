@@ -125,6 +125,7 @@ export const FeedItem = ({
             <StyledVideo
               preload="auto"
               width={media?.width}
+              playsInline
               style={{ maxWidth: "100%" }}
               onEnded={() => handleVideoEnded(id)}
             >
@@ -142,6 +143,7 @@ export const FeedItem = ({
             <video
               preload="auto"
               style={{ width: "100px", height: "100px", position: "absolute" }}
+              playsInline
             >
               <source
                 src={
