@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { StyledListingContainer, SpinnerContainer } from "./feed.styled";
+import { StyledListingContainer, SpinnerContainer, StyledPageContainer } from "./feed.styled";
 import {
   profileURL,
   bestListingsURL,
@@ -118,14 +118,14 @@ export default function Feed() {
 
   const onScroll = debounce(() => {
     const { scrollHeight, offsetHeight, scrollTop } = scrollContainer.current;
-    const scrollPadding = 50;
+    const scrollPadding = 70;
     if (scrollTop + offsetHeight > scrollHeight - scrollPadding && listings) {
       getFeed();
     }
   }, 300);
 
   return (
-    <>
+    <StyledPageContainer  onScroll={onScroll} ref={scrollContainer}>
       {profile?.id ? (
         <PageHeader
           imagePath={profile.icon_img}
@@ -137,7 +137,7 @@ export default function Feed() {
       )}
       {!isPageLoading ? (
         <>
-          <StyledListingContainer onScroll={onScroll} ref={scrollContainer}>
+          <StyledListingContainer>
             {listings &&
               listings.map((listing) => (
                 <FeedItem
@@ -172,6 +172,6 @@ export default function Feed() {
       ) : (
         isPageLoading && <LoaderEvolution />
       )}
-    </>
+    </StyledPageContainer>
   );
 }
