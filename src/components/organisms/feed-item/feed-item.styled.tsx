@@ -6,9 +6,14 @@ export const StyledPlayerControls = styled.div`
   position: absolute;
   left: 0px;
   right: 0px;
-  opacity: 0.3;
+  opacity: .8;
+  height: 100%;
+  top: 0;
+  display: flex;
+  justify-content: center;
   cursor: pointer;
-  top: calc(50% - 27px);
+  display: flex;
+  top: 0;
   &>button {
     all: initial;
   }

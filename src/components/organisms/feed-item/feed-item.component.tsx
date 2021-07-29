@@ -32,6 +32,7 @@ export const FeedItem = ({
   title,
   selftext,
   url,
+  domain,
   id,
   thumbnail,
   media,
@@ -40,25 +41,26 @@ export const FeedItem = ({
   commentsCount,
   votesCount,
   votesType,
+  preview,
 }: IFeedItemRender) => {
   const [isVideoPlaying, setVideoPlaying] = useState<IVideoPlaying>({});
   const [comments, setComments] = useState();
 
   const handleVideoEvent = (
-    e: SyntheticEvent<HTMLButtonElement>,
+    e: SyntheticEvent<HTMLDivElement>,
     id: string
   ) => {
     const newVideoState: IVideoPlaying = { ...isVideoPlaying };
     if (isVideoPlaying![`video-${id}`]) {
-      (e.currentTarget.parentElement
+      (e.currentTarget
         .previousElementSibling as HTMLVideoElement).pause();
-      (e.currentTarget.parentElement
+      (e.currentTarget
         .nextElementSibling as HTMLVideoElement).pause();
       newVideoState![`video-${id}`] = false;
     } else {
-      (e.currentTarget.parentElement
+      (e.currentTarget
         .previousElementSibling as HTMLVideoElement).play();
-      (e.currentTarget.parentElement
+      (e.currentTarget
         .nextElementSibling as HTMLVideoElement).play();
       newVideoState![`video-${id}`] = true;
     }
@@ -80,6 +82,19 @@ export const FeedItem = ({
 
   }
 
+  const hasLinkedPosted = (domain) => {
+    if (domain.includes('self.') || domain.includes('.redd') || domain.includes('reddit.com')) {
+      return false;
+    }
+    return true;
+  }
+
+  const handleVideoEnded = (id) => {
+    const newVideoState: IVideoPlaying = { ...isVideoPlaying };
+    newVideoState![`video-${id}`] = false;
+    setVideoPlaying(newVideoState);
+  }
+
   return (
     <StyledContainer id={id}>
       <StyledSubHeader>
@@ -89,11 +104,16 @@ export const FeedItem = ({
       </StyledSubHeader>
       <StyledTitle onClick={getComments}>{title.replaceAll("&amp;", "&")}</StyledTitle>
       <StyledPost>
-        {/* {selftext && <Paragraph text={selftext} />} */}
         {selftext && <FeedContent text={selftext} />}
         {thumbnail && thumbnail !== "self" && isImage(url) && (
           <img alt={title} src={url} />
         )}
+        {
+          hasLinkedPosted(domain) && <div>
+            <a href={url} target="_blank" rel="noreferrer">
+            <img width="100%" alt={title} src={preview?.images[0].source.url} />
+            </a></div>
+        }
         {media && (
           <div
             style={{
@@ -106,11 +126,12 @@ export const FeedItem = ({
               preload="auto"
               width={media?.width}
               style={{ maxWidth: "100%" }}
+              onEnded={() => handleVideoEnded(id)}
             >
               <source src={media?.fallback_url} type="video/mp4" />
             </StyledVideo>
-            <StyledPlayerControls>
-              <button onClick={(e) => handleVideoEvent(e, id)}>
+            <StyledPlayerControls onClick={(e) => handleVideoEvent(e, id)}>
+              <button>
                 <img
                   width="50"
                   src={isVideoPlaying[`video-${id}`] ? pauseIcon : playIcon}
