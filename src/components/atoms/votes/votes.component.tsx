@@ -1,8 +1,8 @@
 import { 
-    StyledContainer } 
+    StyledContainer, StyledVotesIcon } 
     from './votes.styled';
 import VotesToRender from '../../../helpers/votesToRender';
-    // import timeIcon from "../../../images/time.svg";
+    import upIcon from "../../../images/upvote.png";
 
 
 
@@ -14,7 +14,7 @@ export interface IPostedAgo {
 export const Votes = ({type, count }: IPostedAgo) => {
  
     return <StyledContainer>
-        {type === 'upvote' ? <strong>/\</strong>  : <strong>\/</strong>}
-        {' ' + VotesToRender(count)}
+        <StyledVotesIcon type={type} alt={`${count} votes`} src={upIcon} width="14"/>
+        <span>{' ' + VotesToRender(count)}</span>
     </StyledContainer>
 }

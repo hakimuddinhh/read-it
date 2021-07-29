@@ -10,6 +10,8 @@ export interface IFeedItemCommon {
     url: string;
     thumbnail?: string;
     selftext: string;
+    domain?: string;
+    preview?: any;
 
     
   }
@@ -25,6 +27,9 @@ export interface IFeedItemRequest extends IFeedItemCommon{
     num_comments: number;
     downs: number;
 }  
+
+// check if domain is not reddit with new URL js 
+// if not then show link component with image
 
 export interface IFeedItemRender extends IFeedItemCommon {
     media?: IFeedVideo | null;

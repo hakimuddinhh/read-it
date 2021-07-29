@@ -147,11 +147,13 @@ export default function Feed() {
                   getCommentAPI={listing?.data?.permalink}
                   author={listing?.data?.author}
                   id={listing?.data?.id}
+                  domain={listing?.data?.domain}
                   subreddit={listing?.data?.subreddit}
                   created={listing?.data?.created_utc}
                   title={listing?.data?.title}
                   selftext={listing?.data?.selftext_html}
                   url={listing?.data?.url}
+                  preview={listing?.data?.preview}
                   thumbnail={listing?.data?.thumbnail}
                   media={
                     listing?.data?.is_video

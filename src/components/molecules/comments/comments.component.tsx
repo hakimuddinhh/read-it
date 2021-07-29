@@ -4,15 +4,17 @@ import {
   StyledCommentsContainer,
   StyledAuthor,
   StyledContent,
+  StyledPostedAgo,
   StyledVotes,
   StyledRepliesCount,
   StyledCommentsWrapper,
-  StyledNavButton,
+  StyledCommentNavContainer,
   StyledNavButtonContainer,
 } from "./comments.styled";
-import { PostedAgo } from "../../atoms/posted-ago/posted-ago.component";
 import { Votes } from "../../atoms/votes/votes.component";
 import repliesIcon from "../../../images/replies.png";
+import backIcon from "../../../images/back.png";
+import commentsHomeIcon from "../../../images/rewind.png";
 
 
 export const Comments = ({ data }) => {
@@ -46,8 +48,8 @@ export const Comments = ({ data }) => {
         comment.kind !== 'more' ?
         <StyledCommentsContainer ref={commentsContainerRef} key={comment.data.id}>
           <StyledAuthor>{comment.data.author}</StyledAuthor>
+          <StyledPostedAgo timestamp={comment.data.created} type="post" />
           <StyledContent>{comment.data.body}</StyledContent>
-          <PostedAgo timestamp={comment.data.created} type="post" />
           <StyledVotes>
             <Votes type={comment.data.ups ? 'upvote' : 'downvote'} count={comment.data.ups || comment.data.downs} />
           </StyledVotes>
@@ -89,13 +91,15 @@ export const Comments = ({ data }) => {
     <StyledMainContainer>
       <h3>Comments</h3>
       {commentTracker.atLevel ? (
+        <StyledCommentNavContainer>
         <StyledNavButtonContainer>
-          <StyledNavButton onClick={goBack}> &#x3c; </StyledNavButton>
-          <StyledNavButton onClick={GetfirstLevelComments}>&#x3c; &#x3c;</StyledNavButton>
+          <button onClick={goBack}><img width="15" src={backIcon} alt={'Go to previous comments'} /></button>
+          <button onClick={GetfirstLevelComments}><img width="15" src={commentsHomeIcon} alt={'Go to first level comments'} /></button>
+        </StyledNavButtonContainer>
           <b>
             {commentTracker.replies[commentTracker.replies.length - 1].title}
           </b>
-        </StyledNavButtonContainer>
+          </StyledCommentNavContainer>
       ) : null}
        
       {renderComments(

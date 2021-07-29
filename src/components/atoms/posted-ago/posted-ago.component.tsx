@@ -12,8 +12,8 @@ export interface IPostedAgo {
     type: 'post' | 'comment';
 }    
 
-export const PostedAgo = ({timestamp, type }: IPostedAgo) => {
-    return <StyledContainer>
+export const PostedAgo = ({timestamp, ...props }: IPostedAgo) => {
+    return <StyledContainer {...props}>
         <img src={timeIcon} alt="posted ago" width="10" />
         <span>{getPostedAgoTime(timestamp)}</span>
     </StyledContainer>
